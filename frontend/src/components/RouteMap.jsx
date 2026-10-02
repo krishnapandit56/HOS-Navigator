@@ -1,11 +1,57 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
-import { MapPin, Navigation, Fuel, Coffee, Moon, Flag, Warehouse } from 'lucide-react';
+import { MapPin, Navigation, Fuel, Coffee, Moon, Flag, Warehouse, Layers } from 'lucide-react';
+
+// Free high-performance tile providers (CartoDB & ESRI) that do not block localhost
+const TILE_PROVIDERS = {
+  voyager: {
+    name: 'CartoDB Voyager (Streets)',
+    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20,
+  },
+  positron: {
+    name: 'Clean Light',
+    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+    subdomains: 'abcd',
+    maxZoom: 20,
+  },
+  esri: {
+    name: 'Esri World Street',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    attribution: 'Tiles &copy; Esri',
+    subdomains: ['server', 'services'],
+    maxZoom: 19,
+  }
+};
 
 export default function RouteMap({ route, summary }) {
   const mapContainerRef = useRef(null);
   const mapInstanceRef = useRef(null);
+  const tileLayerRef = useRef(null);
   const layersGroupRef = useRef(null);
+  const [selectedMapStyle, setSelectedMapStyle] = useState('voyager');
+
+  // Change tile provider dynamically if style changes
+  useEffect(() => {
+    if (!mapInstanceRef.current) return;
+    const provider = TILE_PROVIDERS[selectedMapStyle] || TILE_PROVIDERS.voyager;
+
+    if (tileLayerRef.current) {
+      mapInstanceRef.current.removeLayer(tileLayerRef.current);
+    }
+
+    tileLayerRef.current = L.tileLayer(provider.url, {
+      attribution: provider.attribution,
+      subdomains: provider.subdomains,
+      maxZoom: provider.maxZoom,
+    }).addTo(mapInstanceRef.current);
+    
+    // Ensure tile layer sits at the bottom
+    tileLayerRef.current.bringToBack();
+  }, [selectedMapStyle]);
 
   useEffect(() => {
     if (!mapContainerRef.current) return;
@@ -15,12 +61,13 @@ export default function RouteMap({ route, summary }) {
       const map = L.map(mapContainerRef.current, {
         zoomControl: true,
         scrollWheelZoom: true,
-      }).setView([39.8283, -98.5795], 4); // Center of US default
+      }).setView([39.8283, -98.5795], 4);
 
-      // Free OpenStreetMap tile layer (no API key required)
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19,
+      const defaultProvider = TILE_PROVIDERS.voyager;
+      tileLayerRef.current = L.tileLayer(defaultProvider.url, {
+        attribution: defaultProvider.attribution,
+        subdomains: defaultProvider.subdomains,
+        maxZoom: defaultProvider.maxZoom,
       }).addTo(map);
 
       layersGroupRef.current = L.featureGroup().addTo(map);
@@ -188,8 +235,21 @@ export default function RouteMap({ route, summary }) {
           className="w-full h-[420px] bg-slate-900"
           style={{ zIndex: 1 }}
         />
-        <div className="absolute top-2 right-2 z-10 bg-slate-900/85 backdrop-blur px-3 py-1.5 rounded-md border border-slate-700 text-xs text-slate-300 shadow">
-          🗺️ Free OpenStreetMap & OSRM Routing
+        
+        {/* Style Switcher & Badge */}
+        <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
+          <div className="bg-slate-900/90 backdrop-blur px-2.5 py-1.5 rounded-md border border-slate-700 text-xs text-slate-200 shadow flex items-center gap-1.5">
+            <Layers className="w-3.5 h-3.5 text-sky-400" />
+            <select
+              value={selectedMapStyle}
+              onChange={(e) => setSelectedMapStyle(e.target.value)}
+              className="bg-transparent text-xs text-white focus:outline-none cursor-pointer"
+            >
+              <option value="voyager" className="bg-slate-900 text-white">CartoDB Voyager (Roads)</option>
+              <option value="positron" className="bg-slate-900 text-white">Clean Light</option>
+              <option value="esri" className="bg-slate-900 text-white">Esri Street Map</option>
+            </select>
+          </div>
         </div>
       </div>
 
