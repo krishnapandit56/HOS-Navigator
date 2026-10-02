@@ -2,25 +2,32 @@ import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { MapPin, Navigation, Fuel, Coffee, Moon, Flag, Warehouse, Layers } from 'lucide-react';
 
-// Free high-performance tile providers (CartoDB & ESRI) that do not block localhost
+// 100% Free tile providers with ZERO API keys and NO watermarks
 const TILE_PROVIDERS = {
-  voyager: {
-    name: 'CartoDB Voyager (Streets)',
-    url: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20,
-  },
-  positron: {
-    name: 'Clean Light',
-    url: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
-    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
-    subdomains: 'abcd',
-    maxZoom: 20,
-  },
   esri: {
-    name: 'Esri World Street',
+    name: 'Esri World Street (Highways)',
     url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}',
+    attribution: 'Tiles &copy; Esri &mdash; National Geographic, DeLorme, NAVTEQ',
+    subdomains: ['server', 'services'],
+    maxZoom: 19,
+  },
+  osm_hot: {
+    name: 'OpenStreetMap Humanitarian',
+    url: 'https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    subdomains: ['a', 'b', 'c'],
+    maxZoom: 19,
+  },
+  osm_fr: {
+    name: 'OpenStreetMap Standard (Mirror)',
+    url: 'https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png',
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+    subdomains: ['a', 'b', 'c'],
+    maxZoom: 19,
+  },
+  esri_topo: {
+    name: 'Esri Topographic',
+    url: 'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}',
     attribution: 'Tiles &copy; Esri',
     subdomains: ['server', 'services'],
     maxZoom: 19,
@@ -32,12 +39,12 @@ export default function RouteMap({ route, summary }) {
   const mapInstanceRef = useRef(null);
   const tileLayerRef = useRef(null);
   const layersGroupRef = useRef(null);
-  const [selectedMapStyle, setSelectedMapStyle] = useState('voyager');
+  const [selectedMapStyle, setSelectedMapStyle] = useState('esri');
 
   // Change tile provider dynamically if style changes
   useEffect(() => {
     if (!mapInstanceRef.current) return;
-    const provider = TILE_PROVIDERS[selectedMapStyle] || TILE_PROVIDERS.voyager;
+    const provider = TILE_PROVIDERS[selectedMapStyle] || TILE_PROVIDERS.esri;
 
     if (tileLayerRef.current) {
       mapInstanceRef.current.removeLayer(tileLayerRef.current);
@@ -63,7 +70,7 @@ export default function RouteMap({ route, summary }) {
         scrollWheelZoom: true,
       }).setView([39.8283, -98.5795], 4);
 
-      const defaultProvider = TILE_PROVIDERS.voyager;
+      const defaultProvider = TILE_PROVIDERS.esri;
       tileLayerRef.current = L.tileLayer(defaultProvider.url, {
         attribution: defaultProvider.attribution,
         subdomains: defaultProvider.subdomains,
@@ -245,9 +252,10 @@ export default function RouteMap({ route, summary }) {
               onChange={(e) => setSelectedMapStyle(e.target.value)}
               className="bg-transparent text-xs text-white focus:outline-none cursor-pointer"
             >
-              <option value="voyager" className="bg-slate-900 text-white">CartoDB Voyager (Roads)</option>
-              <option value="positron" className="bg-slate-900 text-white">Clean Light</option>
-              <option value="esri" className="bg-slate-900 text-white">Esri Street Map</option>
+              <option value="esri" className="bg-slate-900 text-white">Esri World Street (Highways)</option>
+              <option value="osm_hot" className="bg-slate-900 text-white">OSM Humanitarian</option>
+              <option value="osm_fr" className="bg-slate-900 text-white">OSM Standard Mirror</option>
+              <option value="esri_topo" className="bg-slate-900 text-white">Esri Topographic</option>
             </select>
           </div>
         </div>
