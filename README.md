@@ -17,8 +17,6 @@ A professional full-stack logistics application built with **Django REST Framewo
 | **Mandatory Fueling** | Fueling stop scheduled at least once every 1,000 miles (30m On-Duty Not Driving) | ✅ Complete |
 | **Pickup & Drop-off** | 1.0 hour On-Duty Not Driving scheduled at both Pickup and Dropoff facilities | ✅ Complete |
 | **Print / Export** | Dedicated print & PDF stylesheet for generating official paperwork | ✅ Complete |
-| **Deployment Ready** | `vercel.json` for Vercel, `render.yaml` for Render, unified Django static serving | ✅ Complete |
-| **Loom Video Script** | Complete 3-5 minute presentation script provided below | ✅ Complete |
 
 ---
 
@@ -153,42 +151,6 @@ OK (System check identified no issues)
    - Environment Variables:
      - `VITE_API_URL`: `https://truck-eld-backend.onrender.com`
    - Click **Deploy**!
-
----
-
-## 📹 3-5 Minute Loom Video Walkthrough Script
-
-Use this structured script to record your 3-5 minute Loom video showcasing your application and code to the client:
-
-### ⏱️ Video Outline (3 to 5 minutes total)
-
-#### Part 1: Introduction & Problem Statement (0:00 - 0:45)
-> *"Hello! In this video, I am presenting **TruckRoute ELD**, a full-stack logistics and Hours of Service application built with **Django REST Framework** and **React**. Commercial truck drivers must adhere strictly to federal FMCSA regulations—specifically the 70-hour/8-day property-carrying rule, the 11-hour driving cap, the 14-hour duty window, mandatory 30-minute breaks, and paper daily log sheets. Our application takes in trip details—origin, pickup, dropoff, and current cycle hours—and automatically plots the route on an interactive map and renders authentic, compliant FMCSA Driver's Daily Log sheets."*
-
-#### Part 2: Live App Demonstration (0:45 - 2:00)
-1. **Show the Inputs**:
-   > *"Here on the dashboard, we have our trip inputs: Current Location, Pickup Location, Dropoff Location, and Current Cycle Used. We also have 1-click test presets."*
-2. **Demo a Multi-Day Trip (e.g., Chicago &rarr; St. Louis &rarr; Dallas)**:
-   > *"Let's select our Chicago to Dallas trip with 14.5 cycle hours already used. Click 'Calculate Route & Draw ELD Logs'."*
-3. **Show the Summary KPIs**:
-   > *"Immediately, the app computes total trip mileage (925.7 miles), driving time, on-duty time, rest time, and indicates that this trip requires 2 daily sheets with 100% FMCSA compliance."*
-4. **Show the Interactive Map**:
-   > *"Below, the Leaflet map renders the complete route using free OpenStreetMap tiles and OSRM routing. Notice the interactive waypoints: Blue for origin, Green for the 1-hour pickup stop, Purple for dropoff, Amber for fuel stops, and Indigo for the mandatory 10-hour sleeper berth reset."*
-5. **Show the FMCSA Driver's Daily Log Sheet**:
-   > *"Now for the core deliverable: the FMCSA Driver's Daily Log Sheet. It is an exact replica of the DOT form. Notice the SVG 24-hour graph grid with rows for Off Duty, Sleeper Berth, Driving, and On Duty Not Driving. The blue step line accurately connects duty status changes. Day 1 has exactly 11.0 hours of driving, 1.5 hours on duty, 5.0 hours of sleeper berth, summing to exactly 24.0 hours. We can flip to Day 2 to see the remainder of the trip. The Remarks, Shipping Documents, and 70-Hour Recap table are all dynamically populated."*
-6. **Show Print / PDF Functionality**:
-   > *"Drivers or dispatchers can click 'Print Log' to print or export a clean PDF copy for DOT roadside inspections."*
-
-#### Part 3: Code Architecture & Logic Walkthrough (2:00 - 3:30)
-1. **Backend Engine (`hos_engine.py`)**:
-   > *"Looking at the codebase, the backend is powered by `HOSPlannerEngine`. It handles geocoding, route mileage, and enforces the property-carrying rules. It tracks shift driving limits (11 hours), duty windows (14 hours), cumulative driving before breaks (8 hours), and fuel consumption (triggering fueling stops before 1,000 miles). It then slices the continuous timeline into discrete 24-hour midnight-to-midnight daily log sheets."*
-2. **REST API (`views.py`)**:
-   > *"The Django views expose clean REST endpoints: `/api/trips/plan/` for computing routes and logs, `/api/trips/presets/` for demo scenarios, and `/api/health/`."*
-3. **Frontend React Architecture (`components/ELDLogSheet.jsx`)**:
-   > *"On the frontend, `ELDLogSheet.jsx` uses SVG math to render the 24-hour graph, tick marks, status lines, and continuous polyline paths with zero distortion across all screen resolutions."*
-
-#### Part 4: Conclusion & Wrap-up (3:30 - 4:00)
-> *"The backend is tested with Django test suites, and the app is ready for deployment on Vercel and Render. Thank you for watching!"*
 
 ---
 
