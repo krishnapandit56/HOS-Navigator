@@ -1,0 +1,26 @@
+services:
+  # Django REST Backend API
+  - type: web
+    name: truck-eld-backend
+    env: python
+    buildCommand: "pip install -r backend/requirements.txt && python backend/manage.py migrate"
+    startCommand: "cd backend && gunicorn truck_eld_backend.wsgi:application --bind 0.0.0.0:$PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DEBUG
+        value: "False"
+
+  # React Frontend Static Site
+  - type: web
+    name: truck-eld-frontend
+    env: static
+    buildCommand: "cd frontend && npm install && npm run build"
+    staticPublishPath: "./frontend/dist"
+    routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://truck-eld-backend.onrender.com/api/*
+      - type: rewrite
+        source: /*
+        destination: /index.html
