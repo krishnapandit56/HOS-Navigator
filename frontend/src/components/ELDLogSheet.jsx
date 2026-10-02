@@ -93,20 +93,20 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
   };
 
   return (
-    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-5 shadow-2xl space-y-6">
+    <div className="bg-slate-50/80 border border-slate-300 rounded-xl p-5 shadow-2xl space-y-6">
       {/* Top Header & Day Pagination */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-700 no-print">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-300 no-print">
         <div>
           <div className="flex items-center gap-2">
             <FileText className="w-6 h-6 text-sky-400" />
-            <h2 className="text-xl font-bold text-white tracking-wide">
+            <h2 className="text-xl font-bold text-slate-900 tracking-wide">
               FMCSA Driver's Daily Log Sheets
             </h2>
             <span className="px-2 py-0.5 text-xs font-semibold bg-emerald-500/20 text-emerald-300 rounded border border-emerald-500/30 flex items-center gap-1">
               <ShieldCheck className="w-3.5 h-3.5" /> 70hr/8day Compliant
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-600 mt-1">
             Official 24-hour log graph and records matching FMCSA §395.8 regulations.
           </p>
         </div>
@@ -114,11 +114,11 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
         {/* Action Buttons & Day Tabs */}
         <div className="flex items-center gap-3">
           {/* Day Navigation */}
-          <div className="flex items-center bg-slate-900 border border-slate-700 rounded-lg p-1">
+          <div className="flex items-center bg-white border border-slate-300 rounded-lg p-1">
             <button
               onClick={() => setActiveDayIndex(Math.max(0, activeDayIndex - 1))}
               disabled={activeDayIndex === 0}
-              className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
+              className="p-1 rounded text-slate-600 hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
               title="Previous Day"
             >
               <ChevronLeft className="w-5 h-5" />
@@ -129,7 +129,7 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
             <button
               onClick={() => setActiveDayIndex(Math.min(dailyLogs.length - 1, activeDayIndex + 1))}
               disabled={activeDayIndex === dailyLogs.length - 1}
-              className="p-1 rounded text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition"
+              className="p-1 rounded text-slate-600 hover:text-slate-900 disabled:opacity-30 disabled:cursor-not-allowed transition"
               title="Next Day"
             >
               <ChevronRight className="w-5 h-5" />
@@ -139,7 +139,7 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
           {/* Print Button */}
           <button
             onClick={handlePrint}
-            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-white rounded-lg border border-slate-600 transition"
+            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold bg-slate-100 hover:bg-slate-600 text-slate-900 rounded-lg border border-slate-300 transition"
           >
             <Printer className="w-4 h-4 text-sky-400" />
             Print Log
@@ -150,7 +150,7 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
       {/* Day Selector Pills for Multi-Day Trips */}
       {dailyLogs.length > 1 && (
         <div className="flex items-center gap-2 overflow-x-auto pb-1 no-print">
-          <span className="text-xs font-medium text-slate-400 mr-1">Select Sheet:</span>
+          <span className="text-xs font-medium text-slate-600 mr-1">Select Sheet:</span>
           {dailyLogs.map((sheet, idx) => (
             <button
               key={idx}
@@ -158,7 +158,7 @@ export default function ELDLogSheet({ dailyLogs, tripInputs, summary }) {
               className={`px-3 py-1.5 rounded-lg text-xs font-medium transition flex items-center gap-2 whitespace-nowrap ${
                 activeDayIndex === idx
                   ? 'bg-sky-600 text-white shadow-md shadow-sky-600/30'
-                  : 'bg-slate-900/80 text-slate-300 hover:bg-slate-700/60 border border-slate-700/80'
+                  : 'bg-white/80 text-slate-700 hover:bg-slate-100/60 border border-slate-300/80'
               }`}
             >
               <Calendar className="w-3.5 h-3.5" />

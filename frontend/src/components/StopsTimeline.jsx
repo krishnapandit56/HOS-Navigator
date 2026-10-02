@@ -44,23 +44,23 @@ export default function StopsTimeline({ stops }) {
         };
       default:
         return {
-          icon: <Navigation className="w-3.5 h-3.5 text-slate-400" />,
+          icon: <Navigation className="w-3.5 h-3.5 text-slate-600" />,
           label: 'Waypoint',
-          badgeClass: 'bg-slate-900 text-slate-300 border-slate-700'
+          badgeClass: 'bg-white text-slate-700 border-slate-300'
         };
     }
   };
 
   return (
-    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-5 shadow-2xl space-y-4">
-      <div className="flex items-center justify-between pb-3 border-b border-slate-700">
+    <div className="bg-slate-50/80 border border-slate-300 rounded-xl p-5 shadow-2xl space-y-4">
+      <div className="flex items-center justify-between pb-3 border-b border-slate-300">
         <div className="flex items-center gap-2">
           <Clock className="w-5 h-5 text-sky-400" />
-          <h2 className="text-lg font-bold text-white tracking-wide">
+          <h2 className="text-lg font-bold text-slate-900 tracking-wide">
             Detailed Route Schedule & HOS Itinerary
           </h2>
         </div>
-        <span className="text-xs text-slate-400 font-mono">
+        <span className="text-xs text-slate-600 font-mono">
           {stops.length} Total Waypoints
         </span>
       </div>
@@ -68,7 +68,7 @@ export default function StopsTimeline({ stops }) {
       <div className="overflow-x-auto">
         <table className="w-full text-left text-xs border-collapse">
           <thead>
-            <tr className="bg-slate-900/90 text-slate-400 uppercase text-[10px] tracking-wider border-b border-slate-700">
+            <tr className="bg-white/90 text-slate-600 uppercase text-[10px] tracking-wider border-b border-slate-300">
               <th className="py-2.5 px-3">#</th>
               <th className="py-2.5 px-3">Stop / Activity</th>
               <th className="py-2.5 px-3">Location</th>
@@ -85,9 +85,9 @@ export default function StopsTimeline({ stops }) {
               return (
                 <tr
                   key={stop.id || idx}
-                  className="hover:bg-slate-700/40 transition"
+                  className="hover:bg-slate-100/40 transition"
                 >
-                  <td className="py-2.5 px-3 font-mono font-bold text-slate-400">
+                  <td className="py-2.5 px-3 font-mono font-bold text-slate-600">
                     {idx + 1}
                   </td>
                   <td className="py-2.5 px-3">
@@ -96,22 +96,22 @@ export default function StopsTimeline({ stops }) {
                       <span>{badge.label}</span>
                     </span>
                   </td>
-                  <td className="py-2.5 px-3 font-semibold text-white">
+                  <td className="py-2.5 px-3 font-semibold text-slate-900">
                     {stop.location_name}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-slate-300">
+                  <td className="py-2.5 px-3 font-mono text-slate-700">
                     {stop.arrival_time || '—'}
                   </td>
-                  <td className="py-2.5 px-3 font-mono text-slate-300">
+                  <td className="py-2.5 px-3 font-mono text-slate-700">
                     {stop.departure_time || '—'}
                   </td>
                   <td className="py-2.5 px-3 font-mono text-sky-400">
                     {stop.duration_hours} hr
                   </td>
-                  <td className="py-2.5 px-3 font-mono font-bold text-slate-200">
+                  <td className="py-2.5 px-3 font-mono font-bold text-slate-800">
                     Mile {stop.miles_from_start}
                   </td>
-                  <td className="py-2.5 px-3 text-slate-400 text-[11px]">
+                  <td className="py-2.5 px-3 text-slate-600 text-[11px]">
                     {stop.notes}
                   </td>
                 </tr>

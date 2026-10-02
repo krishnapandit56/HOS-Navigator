@@ -51,13 +51,13 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
   };
 
   return (
-    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-5 shadow-2xl space-y-5">
+    <div className="bg-slate-50/80 border border-slate-300 rounded-xl p-5 shadow-2xl space-y-5">
       {/* Header & Quick Presets */}
       <div>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Truck className="w-5 h-5 text-sky-400" />
-            <h2 className="text-lg font-bold text-white tracking-wide">
+            <h2 className="text-lg font-bold text-slate-900 tracking-wide">
               Trip Dispatch & HOS Parameters
             </h2>
           </div>
@@ -68,8 +68,8 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
 
         {/* Quick Demo Presets */}
         {presets && presets.length > 0 && (
-          <div className="mt-3 pt-3 border-t border-slate-700/80">
-            <div className="flex items-center gap-1.5 text-xs text-slate-400 mb-2">
+          <div className="mt-3 pt-3 border-t border-slate-300/80">
+            <div className="flex items-center gap-1.5 text-xs text-slate-600 mb-2">
               <Sparkles className="w-3.5 h-3.5 text-amber-400" />
               <span>Quick Test Presets (1-Click Fill):</span>
             </div>
@@ -79,7 +79,7 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
                   key={p.id}
                   type="button"
                   onClick={() => handleApplyPreset(p)}
-                  className="px-2.5 py-1 text-xs bg-slate-900/90 hover:bg-sky-900/40 text-slate-300 hover:text-white rounded-md border border-slate-700 hover:border-sky-500/50 transition truncate max-w-full"
+                  className="px-2.5 py-1 text-xs bg-white/90 hover:bg-sky-900/40 text-slate-700 hover:text-slate-900 rounded-md border border-slate-300 hover:border-sky-500/50 transition truncate max-w-full"
                   title={p.notes}
                 >
                   {p.label.split(':')[0]}
@@ -95,7 +95,7 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5">
           {/* Current Location */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+            <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-blue-400" />
               Current Location (Origin)
             </label>
@@ -105,13 +105,13 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
               value={currentLocation}
               onChange={(e) => setCurrentLocation(e.target.value)}
               placeholder="e.g. Chicago, IL"
-              className="w-full px-3 py-2 text-sm bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-sky-500 transition"
+              className="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-500 transition"
             />
           </div>
 
           {/* Pickup Location */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+            <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-emerald-400" />
               Pickup Location (1hr Load)
             </label>
@@ -121,13 +121,13 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
               value={pickupLocation}
               onChange={(e) => setPickupLocation(e.target.value)}
               placeholder="e.g. St. Louis, MO"
-              className="w-full px-3 py-2 text-sm bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-sky-500 transition"
+              className="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-500 transition"
             />
           </div>
 
           {/* Dropoff Location */}
           <div className="space-y-1.5">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+            <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-purple-400" />
               Dropoff Location (1hr Unload)
             </label>
@@ -137,15 +137,15 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
               value={dropoffLocation}
               onChange={(e) => setDropoffLocation(e.target.value)}
               placeholder="e.g. Dallas, TX"
-              className="w-full px-3 py-2 text-sm bg-slate-900 border border-slate-700 rounded-lg text-white focus:outline-none focus:border-sky-500 transition"
+              className="w-full px-3 py-2 text-sm bg-white border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-sky-500 transition"
             />
           </div>
         </div>
 
         {/* Current Cycle Used (Hrs) */}
-        <div className="bg-slate-900/80 p-3.5 rounded-lg border border-slate-700/80 space-y-2">
+        <div className="bg-white/80 p-3.5 rounded-lg border border-slate-300/80 space-y-2">
           <div className="flex items-center justify-between">
-            <label className="text-xs font-semibold text-slate-300 flex items-center gap-1.5">
+            <label className="text-xs font-semibold text-slate-700 flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-amber-400" />
               Current Cycle Used (Hrs) - 70-Hr / 8-Day Limit
             </label>
@@ -171,11 +171,11 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
               step="0.5"
               value={currentCycleUsed}
               onChange={(e) => setCurrentCycleUsed(e.target.value)}
-              className="w-20 px-2 py-1 text-sm bg-slate-800 border border-slate-600 rounded text-center text-white focus:outline-none focus:border-sky-500 font-mono"
+              className="w-20 px-2 py-1 text-sm bg-slate-50 border border-slate-300 rounded text-center text-slate-900 focus:outline-none focus:border-sky-500 font-mono"
             />
           </div>
 
-          <div className="flex justify-between text-[11px] text-slate-400 pt-0.5">
+          <div className="flex justify-between text-[11px] text-slate-600 pt-0.5">
             <span>Remaining Cycle Clock: <strong className="text-emerald-400">{(70.0 - currentCycleUsed).toFixed(1)} hrs</strong></span>
             <span>Fuel Stops: every &le; 1,000 miles</span>
           </div>
@@ -193,75 +193,75 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
           </button>
 
           {showAdvanced && (
-            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3.5 bg-slate-900/90 rounded-lg border border-slate-700/80 text-xs">
+            <div className="mt-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 p-3.5 bg-white/90 rounded-lg border border-slate-300/80 text-xs">
               <div>
-                <label className="text-slate-400 block mb-1">Carrier Name</label>
+                <label className="text-slate-600 block mb-1">Carrier Name</label>
                 <input
                   type="text"
                   value={carrierName}
                   onChange={(e) => setCarrierName(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-600 rounded text-white"
+                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Main Office Address</label>
+                <label className="text-slate-600 block mb-1">Main Office Address</label>
                 <input
                   type="text"
                   value={mainOfficeAddress}
                   onChange={(e) => setMainOfficeAddress(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-600 rounded text-white"
+                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Home Terminal Address</label>
+                <label className="text-slate-600 block mb-1">Home Terminal Address</label>
                 <input
                   type="text"
                   value={homeTerminalAddress}
                   onChange={(e) => setHomeTerminalAddress(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-600 rounded text-white"
+                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Truck / Trailer IDs</label>
+                <label className="text-slate-600 block mb-1">Truck / Trailer IDs</label>
                 <div className="flex gap-2">
                   <input
                     type="text"
                     value={truckNumber}
                     onChange={(e) => setTruckNumber(e.target.value)}
                     placeholder="Truck #"
-                    className="w-1/2 px-2 py-1.5 bg-slate-800 border border-slate-600 rounded text-white font-mono"
+                    className="w-1/2 px-2 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 font-mono"
                   />
                   <input
                     type="text"
                     value={trailerNumber}
                     onChange={(e) => setTrailerNumber(e.target.value)}
                     placeholder="Trailer #"
-                    className="w-1/2 px-2 py-1.5 bg-slate-800 border border-slate-600 rounded text-white font-mono"
+                    className="w-1/2 px-2 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 font-mono"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Manifest / Bill of Lading (BOL)</label>
+                <label className="text-slate-600 block mb-1">Manifest / Bill of Lading (BOL)</label>
                 <input
                   type="text"
                   value={manifestNumber}
                   onChange={(e) => setManifestNumber(e.target.value)}
-                  className="w-full px-2.5 py-1.5 bg-slate-800 border border-slate-600 rounded text-white font-mono"
+                  className="w-full px-2.5 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 font-mono"
                 />
               </div>
 
               <div>
-                <label className="text-slate-400 block mb-1">Departure Date & Hour</label>
+                <label className="text-slate-600 block mb-1">Departure Date & Hour</label>
                 <div className="flex gap-2">
                   <input
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="w-3/5 px-2 py-1.5 bg-slate-800 border border-slate-600 rounded text-white text-xs"
+                    className="w-3/5 px-2 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 text-xs"
                   />
                   <input
                     type="number"
@@ -270,7 +270,7 @@ export default function TripForm({ onSubmit, loading, presets, onSelectPreset })
                     step="0.5"
                     value={startHour}
                     onChange={(e) => setStartHour(e.target.value)}
-                    className="w-2/5 px-2 py-1.5 bg-slate-800 border border-slate-600 rounded text-white text-center font-mono"
+                    className="w-2/5 px-2 py-1.5 bg-slate-50 border border-slate-300 rounded text-slate-900 text-center font-mono"
                     title="Start hour (e.g. 6.0 for 06:00 AM)"
                   />
                 </div>

@@ -76,9 +76,9 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans">
       {/* Top Navigation Bar */}
-      <header className="border-b border-slate-800 bg-slate-900/90 backdrop-blur sticky top-0 z-30 no-print">
+      <header className="border-b border-slate-200 bg-white/90 backdrop-blur sticky top-0 z-30 no-print">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-600 to-blue-500 flex items-center justify-center shadow-lg shadow-sky-500/20">
@@ -86,14 +86,14 @@ export default function App() {
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h1 className="text-xl font-black tracking-tight text-white">
+                <h1 className="text-xl font-black tracking-tight text-slate-900">
                   TruckRoute <span className="text-sky-400">ELD</span>
                 </h1>
                 <span className="px-2 py-0.5 text-[10px] font-bold bg-sky-500/20 text-sky-300 rounded border border-sky-500/30">
                   FMCSA §395.8
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600">
                 Route Optimizer & Automated FMCSA Driver's Daily Log Generator
               </p>
             </div>
@@ -101,11 +101,11 @@ export default function App() {
 
           {/* Top Status Badges */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-slate-800 rounded-lg border border-slate-700 text-xs text-slate-300">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg border border-slate-300 text-xs text-slate-700">
               <ShieldCheck className="w-4 h-4 text-emerald-400" />
               <span>Property-carrying (70hr/8day)</span>
             </div>
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-slate-800 rounded-lg border border-slate-700 text-xs text-slate-300">
+            <div className="flex items-center gap-1.5 px-3 py-1 bg-slate-50 rounded-lg border border-slate-300 text-xs text-slate-700">
               <Sparkles className="w-4 h-4 text-amber-400" />
               <span>Free Map & Routing</span>
             </div>
@@ -117,8 +117,8 @@ export default function App() {
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         {/* Error Notification */}
         {error && (
-          <div className="p-4 bg-rose-950/80 border border-rose-600/60 rounded-xl flex items-start gap-3 text-rose-200 text-sm shadow-lg no-print">
-            <AlertCircle className="w-5 h-5 text-rose-400 mt-0.5 shrink-0" />
+          <div className="p-4 bg-rose-50 border border-rose-200 rounded-xl flex items-start gap-3 text-rose-800 text-sm shadow-lg no-print">
+            <AlertCircle className="w-5 h-5 text-rose-600 mt-0.5 shrink-0" />
             <div className="flex-1">
               <strong className="font-semibold block mb-0.5">Route Planning Failed</strong>
               <span>{error}</span>
@@ -145,14 +145,14 @@ export default function App() {
             </section>
 
             {/* View Filter Tabs (no-print) */}
-            <div className="flex items-center justify-between border-b border-slate-800 pb-2 no-print">
+            <div className="flex items-center justify-between border-b border-slate-200 pb-2 no-print">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => setActiveTab('all')}
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'all'
                       ? 'bg-sky-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <Layers className="w-4 h-4" />
@@ -163,7 +163,7 @@ export default function App() {
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'logs'
                       ? 'bg-sky-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <FileText className="w-4 h-4" />
@@ -174,7 +174,7 @@ export default function App() {
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'map'
                       ? 'bg-sky-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <Navigation className="w-4 h-4" />
@@ -185,7 +185,7 @@ export default function App() {
                   className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center gap-1.5 ${
                     activeTab === 'schedule'
                       ? 'bg-sky-600 text-white shadow'
-                      : 'text-slate-400 hover:text-white hover:bg-slate-800'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                   }`}
                 >
                   <Calendar className="w-4 h-4" />
@@ -193,7 +193,7 @@ export default function App() {
                 </button>
               </div>
 
-              <div className="text-xs text-slate-400">
+              <div className="text-xs text-slate-600">
                 Generated <strong className="text-sky-400">{tripData.daily_logs.length}</strong> official 24-hr log sheets
               </div>
             </div>
@@ -225,13 +225,13 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800 bg-slate-900 py-6 mt-12 text-xs text-slate-500 no-print">
+      <footer className="border-t border-slate-200 bg-white py-6 mt-12 text-xs text-slate-500 no-print">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <Truck className="w-4 h-4 text-sky-400" />
             <span>TruckRoute ELD — Full-Stack Django & React HOS Route Planner</span>
           </div>
-          <div className="flex items-center gap-4 text-slate-400">
+          <div className="flex items-center gap-4 text-slate-600">
             <span>FMCSA 49 CFR Part 395</span>
             <span>&bull;</span>
             <span>70hr/8day Rules</span>

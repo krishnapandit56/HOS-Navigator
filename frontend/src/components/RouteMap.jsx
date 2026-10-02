@@ -135,7 +135,7 @@ export default function RouteMap({ route, summary }) {
           <div class="w-8 h-8 rounded-full ${bgColor} border-2 border-white shadow-lg flex items-center justify-center text-sm transform transition duration-200 group-hover:scale-125">
             <span>${iconSymbol}</span>
           </div>
-          <span class="absolute -bottom-5 px-1.5 py-0.5 rounded text-[10px] font-bold text-white bg-slate-900/90 whitespace-nowrap shadow border border-slate-700">
+          <span class="absolute -bottom-5 px-1.5 py-0.5 rounded text-[10px] font-bold text-slate-900 bg-white/90 whitespace-nowrap shadow border border-slate-300">
             ${badgeLabel}
           </span>
         </div>
@@ -203,59 +203,59 @@ export default function RouteMap({ route, summary }) {
   }, [route]);
 
   return (
-    <div className="bg-slate-800/80 border border-slate-700 rounded-xl p-5 shadow-2xl space-y-4">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-700">
+    <div className="bg-slate-50/80 border border-slate-300 rounded-xl p-5 shadow-2xl space-y-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3 border-b border-slate-300">
         <div className="flex items-center gap-2">
           <Navigation className="w-5 h-5 text-sky-400" />
-          <h2 className="text-lg font-bold text-white tracking-wide">
+          <h2 className="text-lg font-bold text-slate-900 tracking-wide">
             Interactive Route & Mandated Stops Map
           </h2>
         </div>
 
         {/* Legend */}
         <div className="flex flex-wrap items-center gap-3 text-xs">
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-500"></span> Origin
           </span>
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span> Pickup (1hr)
           </span>
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-purple-500"></span> Dropoff (1hr)
           </span>
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-amber-500"></span> Fuel (&le; 1,000 mi)
           </span>
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-teal-500"></span> 30m Break
           </span>
-          <span className="flex items-center gap-1 text-slate-300">
+          <span className="flex items-center gap-1 text-slate-700">
             <span className="w-2.5 h-2.5 rounded-full bg-indigo-500"></span> 10h Rest Reset
           </span>
         </div>
       </div>
 
       {/* Leaflet Map Canvas */}
-      <div className="relative rounded-lg overflow-hidden border border-slate-600 shadow-inner z-0">
+      <div className="relative rounded-lg overflow-hidden border border-slate-300 shadow-inner z-0">
         <div
           ref={mapContainerRef}
-          className="w-full h-[420px] bg-slate-900"
+          className="w-full h-[420px] bg-white"
           style={{ zIndex: 1 }}
         />
         
         {/* Style Switcher & Badge */}
         <div className="absolute top-2 right-2 z-10 flex items-center gap-2">
-          <div className="bg-slate-900/90 backdrop-blur px-2.5 py-1.5 rounded-md border border-slate-700 text-xs text-slate-200 shadow flex items-center gap-1.5">
+          <div className="bg-white/90 backdrop-blur px-2.5 py-1.5 rounded-md border border-slate-300 text-xs text-slate-800 shadow flex items-center gap-1.5">
             <Layers className="w-3.5 h-3.5 text-sky-400" />
             <select
               value={selectedMapStyle}
               onChange={(e) => setSelectedMapStyle(e.target.value)}
-              className="bg-transparent text-xs text-white focus:outline-none cursor-pointer"
+              className="bg-transparent text-xs text-slate-900 focus:outline-none cursor-pointer"
             >
-              <option value="esri" className="bg-slate-900 text-white">Esri World Street (Highways)</option>
-              <option value="osm_hot" className="bg-slate-900 text-white">OSM Humanitarian</option>
-              <option value="osm_fr" className="bg-slate-900 text-white">OSM Standard Mirror</option>
-              <option value="esri_topo" className="bg-slate-900 text-white">Esri Topographic</option>
+              <option value="esri" className="bg-white text-slate-900">Esri World Street (Highways)</option>
+              <option value="osm_hot" className="bg-white text-slate-900">OSM Humanitarian</option>
+              <option value="osm_fr" className="bg-white text-slate-900">OSM Standard Mirror</option>
+              <option value="esri_topo" className="bg-white text-slate-900">Esri Topographic</option>
             </select>
           </div>
         </div>
@@ -264,27 +264,27 @@ export default function RouteMap({ route, summary }) {
       {/* Stop Cards Horizontal Scroll / Quick Overview */}
       {route?.stops && route.stops.length > 0 && (
         <div className="space-y-2 pt-1">
-          <div className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+          <div className="text-xs font-semibold uppercase tracking-wider text-slate-600">
             Trip Stops & Waypoints ({route.stops.length} Total):
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2.5">
             {route.stops.map((stop, i) => (
               <div
                 key={stop.id || i}
-                className="bg-slate-900/90 border border-slate-700/80 rounded-lg p-2.5 hover:border-sky-500/50 transition text-xs"
+                className="bg-white/90 border border-slate-300/80 rounded-lg p-2.5 hover:border-sky-500/50 transition text-xs"
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className="font-bold text-white truncate max-w-[140px]">
+                  <span className="font-bold text-slate-900 truncate max-w-[140px]">
                     {stop.title}
                   </span>
                   <span className="text-[10px] font-mono text-sky-400 bg-sky-950/80 px-1.5 py-0.5 rounded border border-sky-800">
                     Mile {stop.miles_from_start}
                   </span>
                 </div>
-                <div className="text-slate-400 truncate mb-1" title={stop.location_name}>
+                <div className="text-slate-600 truncate mb-1" title={stop.location_name}>
                   📍 {stop.location_name}
                 </div>
-                <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-800 pt-1 mt-1">
+                <div className="flex items-center justify-between text-[11px] text-slate-500 border-t border-slate-200 pt-1 mt-1">
                   <span>⏱️ {stop.duration_hours} hr</span>
                   <span className="text-sky-300">{stop.arrival_time?.split(',')[0]}</span>
                 </div>
